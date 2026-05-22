@@ -1,0 +1,6 @@
+{
+  "name": "Leo's Personal Website",
+  "description": "An interactive, elegant, bilingual personal portfolio for an AI Agent Engineer, featuring custom lens masking effects and smooth expandable sections.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
