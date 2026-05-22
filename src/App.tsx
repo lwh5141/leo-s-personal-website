@@ -177,12 +177,12 @@ export default function App() {
     }, 1200);
   };
 
-  // Decorative tags drift animations config
+  // Decorative tags drift animations config (positioned near center but avoiding text overlap)
   const floatingTags = [
-    { textZh: 'AIGC 素材流水线', textEn: 'AIGC Asset Pipeline', initialX: '11%', initialY: '22%', delay: 0 },
-    { textZh: 'RAG 检索增强', textEn: 'RAG Vector Search', initialX: '84%', initialY: '18%', delay: 1 },
-    { textZh: '数字员工编排', textEn: 'Workflow Engine', initialX: '8%', initialY: '70%', delay: 2 },
-    { textZh: 'RPA 自动化协作', textEn: 'Robotics RPA', initialX: '82%', initialY: '65%', delay: 3 },
+    { textZh: 'AIGC 素材流水线', textEn: 'AIGC Asset Pipeline', initialX: '12%', initialY: '18%', delay: 0 },
+    { textZh: 'RAG 检索增强', textEn: 'RAG Vector Search', initialX: '83%', initialY: '15%', delay: 1 },
+    { textZh: '数字员工编排', textEn: 'Workflow Engine', initialX: '10%', initialY: '72%', delay: 2 },
+    { textZh: 'RPA 自动化协作', textEn: 'Robotics RPA', initialX: '85%', initialY: '70%', delay: 3 },
   ];
 
   return (
@@ -293,172 +293,169 @@ export default function App() {
         </AnimatePresence>
       </header>
 
-      {/* 2. CORE HERO SECTION WITH EXPLORATION MOUSE MASK */}
+      {/* 2. CORE HERO SECTION WITH SVG MASK EXPLORATION EFFECT */}
       <section 
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
         onMouseEnter={handleHeroMouseEnter}
         onMouseLeave={handleHeroMouseLeave}
-        className="relative min-h-[82vh] md:min-h-[86vh] flex flex-col justify-center items-center overflow-hidden w-full cursor-none dots-bg-light border-b border-black/5"
+        className="relative min-h-[82vh] md:min-h-[86vh] overflow-hidden w-full cursor-none dots-bg-light border-b border-black/5"
         id="about"
       >
         
-        {/* Floating Background Tech Bubble Decors (Light Theme Version) */}
-        {floatingTags.map((tag, i) => (
-          <motion.div
-            key={i}
-            initial={{ x: 0, y: 0 }}
-            animate={{ 
-              x: [0, 15, -12, 10, 0], 
-              y: [0, -18, 12, -8, 0] 
-            }}
-            transition={{
-              duration: 10 + i * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: tag.delay
-            }}
-            style={{ left: tag.initialX, top: tag.initialY }}
-            className="absolute hidden sm:flex flex-col items-center justify-center w-24 h-24 rounded-full border border-black/10 bg-white/60 backdrop-blur-xs text-center p-2 shadow-xs pointer-events-none select-none z-10"
-          >
-            <div className="font-mono text-[10px] uppercase text-black/40">NODE</div>
-            <div className="font-sans text-xs font-semibold text-black/80 mt-1">
-              {isEnglish ? tag.textEn : tag.textZh}
-            </div>
-          </motion.div>
-        ))}
+        {/* ================= SHARED 3D TRANSFORM STRING ================= */}
+        {(() => {
+          const transform3D = `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateX(${tilt.translateX}px) translateY(${tilt.translateY}px)`;
+          const transition3D = isMouseInHero ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
 
-        {/* ================= BACKGROUND BASE LAYER (LIGHT) ================= */}
-        <div className="relative text-center px-6 max-w-4xl mx-auto flex flex-col items-center pointer-events-none select-none z-0">
-          
-          {/* Visual Slanted typographic anchor */}
-          <div 
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateX(${tilt.translateX}px) translateY(${tilt.translateY}px) rotate(-2deg) skewX(-3deg)`,
-              transition: isMouseInHero ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
-            }}
-            className="flex flex-col items-center"
-          >
-            
-            {/* Tiny introductory chip */}
-            <span className="font-mono text-xs uppercase tracking-widest text-[#6b7280] bg-black/5 px-3 py-1 rounded-full mb-6 italic block">
-              {isEnglish ? 'HELLO, WORLD' : '你好, 世界'}
-            </span>
-
-            {/* Giant Title slanted */}
-            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter text-black leading-none uppercase mb-6">
-              {isEnglish ? (
-                <>HELLO, I'M <span className="font-serif italic font-normal text-black font-display tracking-tight block sm:inline">LEO</span></>
-              ) : (
-                <>您好，我是 <span className="font-serif italic font-normal text-black font-display tracking-tight block sm:inline">李文浩</span></>
-              )}
-            </h1>
-
-            {/* Profession / Info Subtext */}
-            <p className="text-sm sm:text-lg md:text-xl font-display font-medium tracking-tight text-black/60 max-w-2xl mt-2 select-none">
-              {isEnglish 
-                ? 'AI Product Manager / 27 / Hangzhou, Zhejiang' 
-                : 'AI 产品经理 / 27岁 / 浙江杭州'}
-            </p>
-          </div>
-
-          <div className="mt-16 flex flex-col items-center font-mono">
-            {/* Bouncing Chevron down */}
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-              className="text-black/30 mb-2"
-            >
-              <ChevronDown className="w-5 h-5 mx-auto" />
-            </motion.div>
-            <p className="text-xs tracking-tight text-black/40">
-              {isEnglish ? 'Move mouse to explore • Scroll down for details' : '移动鼠标开启探索吧 • 向下滚动查看更多'}
-            </p>
-          </div>
-        </div>
-
-        {/* ================= MASKED LAYER (REVEALED UNDER MOUSE LENS) ================= */}
-        {/* Only active when mouse is inside the Hero area */}
-        <div 
-          className="absolute inset-0 bg-[#000000] dots-bg-dark flex flex-col justify-center items-center pointer-events-none select-none z-20 overflow-hidden"
-          style={{
-            clipPath: isMouseInHero
-              ? `circle(125px at ${mouseCoords.x}px ${mouseCoords.y}px)`
-              : `circle(0px at 0px 0px)`,
-            transition: isMouseInHero ? 'none' : 'clip-path 0.3s ease-out',
-          }}
-        >
-          
-          {/* Floating Background Tech Bubble Decors (LENS VERSION - WHITE BUBBLES) */}
-          {floatingTags.map((tag, i) => (
-            <div
-              key={i}
-              style={{ left: tag.initialX, top: tag.initialY }}
-              className="absolute hidden sm:flex flex-col items-center justify-center w-24 h-24 rounded-full border border-white/20 bg-black text-center p-2 pointer-events-none select-none"
-            >
-              <div className="font-mono text-[10px] uppercase text-white/40">CORE</div>
-              <div className="font-sans text-xs font-semibold text-white/90 mt-1">
-                {isEnglish ? tag.textZh : tag.textEn}
+          return (
+            <>
+              {/* ================= LAYER 0: FLOATING BUBBLES (BOTTOM) ================= */}
+              <div className="absolute inset-0 pointer-events-none select-none z-0">
+                {floatingTags.map((tag, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ x: 0, y: 0 }}
+                    animate={{ 
+                      x: [0, 15, -12, 10, 0], 
+                      y: [0, -18, 12, -8, 0] 
+                    }}
+                    transition={{
+                      duration: 10 + i * 2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: tag.delay
+                    }}
+                    style={{ left: tag.initialX, top: tag.initialY }}
+                    className="absolute hidden sm:flex flex-col items-center justify-center w-20 h-20 rounded-full border border-black/10 bg-white/40 backdrop-blur-xs text-center p-1.5 opacity-60"
+                  >
+                    <div className="font-mono text-[9px] uppercase text-black/55">NODE</div>
+                    <div className="font-sans text-[10px] font-medium text-black/90 mt-0.5">
+                      {isEnglish ? tag.textEn : tag.textZh}
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          ))}
 
-          {/* Mirrored container aligned identically to the background layer */}
-          <div className="relative text-center px-6 max-w-4xl mx-auto flex flex-col items-center pointer-events-none select-none z-0">
-            
-            <div 
-              style={{
-                transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg) translateX(${tilt.translateX}px) translateY(${tilt.translateY}px) rotate(-2deg) skewX(-3deg)`,
-                transition: isMouseInHero ? 'none' : 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
-              }}
-              className="flex flex-col items-center"
-            >
-              
-              {/* Target chip */}
-              <span className="font-mono text-xs uppercase tracking-widest text-[#fafafa] bg-white/10 px-3 py-1 rounded-full mb-6 italic block">
-                {isEnglish ? '你好, 世界' : 'HELLO, WORLD'}
-              </span>
-
-              {/* Inverse giant Title */}
-              <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter text-white leading-none uppercase mb-6">
-                {isEnglish ? (
-                  <>您好，我是 <span className="font-serif italic font-normal text-white font-display tracking-tight block sm:inline">李文浩</span></>
-                ) : (
-                  <>HELLO, I'M <span className="font-serif italic font-normal text-white font-display tracking-tight block sm:inline">LEO</span></>
-                )}
-              </h1>
-
-              {/* Inverse Subtext - showing mirrored translations */}
-              <p className="text-sm sm:text-lg md:text-xl font-display font-medium tracking-tight text-white/70 max-w-2xl mt-2">
-                {isEnglish 
-                  ? 'AI 产品经理 / 27岁 / 浙江杭州'
-                  : 'AI Product Manager / 27 / Hangzhou, Zhejiang'}
-              </p>
-            </div>
-
-            <div className="mt-16 flex flex-col items-center font-mono">
-              <div className="text-white/30 mb-2">
-                <ChevronDown className="w-5 h-5 mx-auto text-white" />
+              {/* ================= LAYER 1: LIGHT (BASE LAYER) ================= */}
+              <div className="absolute inset-0 flex items-center justify-center z-10 select-none">
+                <div 
+                  className="text-center px-6 max-w-4xl mx-auto"
+                  style={{
+                    transform: transform3D,
+                    transition: transition3D,
+                  }}
+                >
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#6b7280] px-3 py-1 rounded-full mb-6 italic block">
+                    {isEnglish ? 'HELLO, WORLD' : '你好, 世界'}
+                  </span>
+                  <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter text-black leading-none uppercase mb-6">
+                    {isEnglish ? (
+                      <>HELLO, I'M <span className="font-serif italic font-normal text-black font-display tracking-tight block sm:inline">LEO</span></>
+                    ) : (
+                      <>您好，我是 <span className="font-serif italic font-normal text-black font-display tracking-tight block sm:inline">李文浩</span></>
+                    )}
+                  </h1>
+                  <p className="text-sm sm:text-lg md:text-xl font-display font-medium tracking-tight text-black/60 mt-2">
+                    {isEnglish 
+                      ? 'AI Product Manager / 27 / Hangzhou, Zhejiang' 
+                      : 'AI 产品经理 / 27岁 / 浙江杭州'}
+                  </p>
+                </div>
               </div>
-              <p className="text-xs tracking-tight text-white/50">
-                {isEnglish 
-                  ? '🔍 Reveal Chinese Translation (Inside the lens)' 
-                  : '🔍 透过探索镜观察英文镜像 (Inside the lens)'}
-              </p>
-            </div>
-          </div>
-        </div>
 
-        {/* Dynamic circular locator dot that indicates physical cursor location if lens is hidden */}
-        <div 
-          className="absolute hidden md:block w-3 h-3 bg-black rounded-full pointer-events-none z-30" 
-          style={{
-            left: `${mouseCoords.x - 6}px`,
-            top: `${mouseCoords.y - 6}px`,
-            opacity: isMouseInHero ? 1 : 0,
-            transition: 'opacity 0.2s'
-          }}
-        />
+              {/* ================= LAYER 2: DARK (MIRRORED - FULL SECTION MASK) ================= */}
+              <div 
+                className="absolute inset-0 flex items-center justify-center select-none z-20"
+                style={{
+                  clipPath: isMouseInHero
+                    ? `circle(140px at ${mouseCoords.x}px ${mouseCoords.y}px)`
+                    : `circle(0px at ${mouseCoords.x}px ${mouseCoords.y}px)`,
+                  transition: isMouseInHero ? 'none' : 'clip-path 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
+                }}
+              >
+                
+                <div className="absolute inset-0 bg-[#000000] dots-bg-dark -z-10" />
+                
+                {/* Dark Theme Bubbles (mirrored) */}
+                <div className="absolute inset-0 pointer-events-none select-none">
+                  {floatingTags.map((tag, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ x: 0, y: 0 }}
+                      animate={{ 
+                        x: [0, 15, -12, 10, 0], 
+                        y: [0, -18, 12, -8, 0] 
+                      }}
+                      transition={{
+                        duration: 10 + i * 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: tag.delay
+                      }}
+                      style={{ left: tag.initialX, top: tag.initialY }}
+                      className="absolute hidden sm:flex flex-col items-center justify-center w-20 h-20 rounded-full border border-white/15 bg-black/60 backdrop-blur-xs text-center p-1.5"
+                    >
+                      <div className="font-mono text-[9px] uppercase text-white/30">CORE</div>
+                      <div className="font-sans text-[10px] font-medium text-white/80 mt-0.5">
+                        {isEnglish ? tag.textZh : tag.textEn}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                
+                <div 
+                  className="text-center px-6 max-w-4xl mx-auto"
+                  style={{
+                    transform: transform3D,
+                    transition: transition3D,
+                  }}
+                >
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#fafafa] px-3 py-1 rounded-full mb-6 italic block">
+                    {isEnglish ? '你好, 世界' : 'HELLO, WORLD'}
+                  </span>
+                  <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-display font-black tracking-tighter text-white leading-none uppercase mb-6">
+                    {isEnglish ? (
+                      <>您好，我是 <span className="font-serif italic font-normal text-white font-display tracking-tight block sm:inline">李文浩</span></>
+                    ) : (
+                      <>HELLO, I'M <span className="font-serif italic font-normal text-white font-display tracking-tight block sm:inline">LEO</span></>
+                    )}
+                  </h1>
+                  <p className="text-sm sm:text-lg md:text-xl font-display font-medium tracking-tight text-white/70 mt-2">
+                    {isEnglish 
+                      ? 'AI 产品经理 / 27岁 / 浙江杭州'
+                      : 'AI Product Manager / 27 / Hangzhou, Zhejiang'}
+                  </p>
+                </div>
+              </div>
+
+              {/* ================= SCROLL HINT (ALWAYS VISIBLE) ================= */}
+              <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center pointer-events-none z-30">
+                <motion.div
+                  animate={{ y: [0, 8, 0] }}
+                  transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                  className="text-black/30 mb-2"
+                >
+                  <ChevronDown className="w-5 h-5" />
+                </motion.div>
+                <p className="text-xs tracking-tight text-black/40 font-mono">
+                  {isEnglish ? 'Move mouse to explore • Scroll down' : '移动鼠标探索 • 向下滚动'}
+                </p>
+              </div>
+
+              {/* ================= CURSOR INDICATOR DOT ================= */}
+              <div 
+                className="absolute hidden md:block w-3 h-3 bg-white/80 rounded-full pointer-events-none z-50 backdrop-blur-sm" 
+                style={{
+                  left: `${mouseCoords.x - 6}px`,
+                  top: `${mouseCoords.y - 6}px`,
+                  opacity: isMouseInHero ? 1 : 0,
+                  transition: 'opacity 0.15s'
+                }}
+              />
+            </>
+          );
+        })()}
       </section>
 
       {/* 3. PROFESSIONAL SKILLS SECTION */}

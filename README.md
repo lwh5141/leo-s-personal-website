@@ -1,54 +1,20 @@
-# Leo's Personal Website
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-个人作品集网站 / Personal Portfolio Website
+# Run and deploy your AI Studio app
 
-## 关于
+This contains everything you need to run your app locally.
 
-这是 Leo（李文浩）的个人网站，展示作为 AI 产品经理的专业技能、项目案例和合作方式。
+View your app in AI Studio: https://ai.studio/apps/193281c8-e814-41a2-84d3-db8704b00596
 
-## 技术栈
+## Run Locally
 
-- **前端框架**: React 19 + TypeScript
-- **构建工具**: Vite
-- **样式**: Tailwind CSS
-- **动画**: Framer Motion
-- **图标**: Lucide React
+**Prerequisites:**  Node.js
 
-## 功能特点
 
-- 中英文双语切换
-- 响应式设计，支持移动端
-- 交互式 Hero 区域（鼠标探索效果）
-- 技能分类展示（可折叠）
-- 项目案例展示
-- 合作方式介绍
-- 联系表单
-
-## 运行项目
-
-```bash
-# 安装依赖
-npm install
-
-# 启动开发服务器
-npm run dev
-
-# 构建生产版本
-npm run build
-```
-
-## 项目结构
-
-```
-src/
-├── App.tsx          # 主应用组件
-├── data.ts          # 数据配置（技能、项目、合作信息）
-├── main.tsx         # 入口文件
-└── index.css        # 全局样式
-```
-
-## 联系方式
-
-- **邮箱**: 15970345141@163.com
-- **GitHub**: github.com/lwh5141
-- **位置**: 浙江杭州
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`
