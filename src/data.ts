@@ -146,8 +146,8 @@ export const PROJECTS_DATA: Project[] = [
     id: '01',
     title_zh: 'AI 数字客服/行政员工系统',
     title_en: 'RAG Smart Customer Service & Admin Employee System',
-    tags: ['RAG', 'LangChain', 'Vue.js', 'PostgreSQL+pgvector'],
-    desc_zh: '深度重构客服与行政双场景高频答疑工作，基于多模态 RAG、LangChain 和 DAG 工作流实现智能问答与合规控制，答疑覆盖率提升至85%，响应延时降低90%以上，并缩短客服新人培养周期 60%。',
+    tags: ['RAG', 'LangGraph', 'Vue.js', 'PostgreSQL+pgvector'],
+    desc_zh: '内部OA系统中嵌入的AI知识助手，为一线员工提供即时的知识检索、订单信息查询与智能建议能力，日均承接500+内部查询，可解决约85%的高频重复问题，缩短客服新人培养周期60%',
     desc_en: 'Reconstructed the Q&A workflows for corporate customer support and HR. Built using LangChain frameworks, pgvector databases, and custom DAG workpaths. Saved 70% of repetitive workflows while boosting pre-sales transaction rate by 12%.',
     period: '2025'
   },
